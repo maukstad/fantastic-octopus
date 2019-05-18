@@ -4,19 +4,23 @@
 
 import datetime, os
 
-#local log device
+#location of log file
+logFileLoc = '/home/mauks/Documents/projects/vpnmanagerlog'
+
+#local log device, will make new file at location of
+#log file, "logFileLoc" if none exists
 def log(event):
     data = event
     date = datetime.datetime.now()
-    if os.path.isfile('/var/log/vpnmanagerlog'):
-        logfile = open('/var/log/vpnmanagerlog', 'a')
-        logfile.write(date)
-        logfile.write(event)
+    if os.path.isfile(logFileLoc):
+        logfile = open(logFileLoc, 'a')
+        logfile.write(str(date) + '\n')
+        logfile.write(event + '\n')
         logfile.close()
     else:
-        logfile = open('/var/log/vpnmanagerlog', 'w')
-        logfile.write(str(date))
-        logfile.write(event)
+        logfile = open(logFileLoc, 'w')
+        logfile.write(str(date) + '\n')
+        logfile.write(event + '\n')
         logfile.close()
-    print(date)
-    print(str(date))
+
+#vpnconnection check
