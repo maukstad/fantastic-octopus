@@ -2,7 +2,7 @@
 
 #vpnmanager.py program to check and restart vpn connection
 
-import datetime, os
+import datetime, os, subprocess
 
 #location of log file
 logFileLoc = '/home/mauks/Documents/projects/vpnmanagerlog'
@@ -24,3 +24,19 @@ def log(event):
         logfile.close()
 
 #vpnconnection check
+
+locNetStatus = subprocess.check_output(['ping', '-c5', '192.168.0.1'])
+locNetConfig = subprocess.check_output('ifconfig')
+
+#by ping
+try subprocess.check_output(['ping', '-c5', '192.168.0.1']):
+    log('net up, data from ping')
+    log(locNetStatus)
+    log(locNetConfig)
+except:
+    log('net down, data from ping')
+    log(locNetStatus)
+    log(locNetConfig)
+
+#by ifconfig
+
