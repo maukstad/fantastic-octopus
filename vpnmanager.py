@@ -15,12 +15,12 @@ def log(event):
     if os.path.isfile(logFileLoc):
         logfile = open(logFileLoc, 'a')
         logfile.write(str(date) + '\n')
-        logfile.write(event + '\n')
+        logfile.write(str(event) + '\n')
         logfile.close()
     else:
         logfile = open(logFileLoc, 'w')
         logfile.write(str(date) + '\n')
-        logfile.write(event + '\n')
+        logfile.write(str(event) + '\n')
         logfile.close()
 
 #vpnconnection check
@@ -28,8 +28,11 @@ def log(event):
 locNetStatus = subprocess.check_output(['ping', '-c5', '192.168.0.1'])
 locNetConfig = subprocess.check_output('ifconfig')
 
-#by ping
-try subprocess.check_output(['ping', '-c5', '192.168.0.1']):
+#by ping 
+#TODO fix error thrown when network off, ping does not
+#return correctly
+try:
+    subprocess.check_output(['ping', '-c5', '192.168.0.1'])
     log('net up, data from ping')
     log(locNetStatus)
     log(locNetConfig)
