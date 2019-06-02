@@ -25,14 +25,18 @@ def log(event):
 
 #vpnconnection check
 
-locNetStatus = subprocess.check_output(['ping', '-c5', '192.168.0.1'])
+locNetStatus = subprocess.check_output(['ping', '-c5', '-w20', '192.168.0.1'],
+       stderr=subprocess.STDOUT,
+       shell=True)
 locNetConfig = subprocess.check_output('ifconfig')
 
 #by ping 
 #TODO fix error thrown when network off, ping does not
 #return correctly
 try:
-    subprocess.check_output(['ping', '-c5', '192.168.0.1'])
+    subprocess.check_output(['ping', '-c5', '-w20', '192.168.0.1'],
+           stderr=subprocess.STDOUT,
+           shell=True)
     log('net up, data from ping')
     log(locNetStatus)
     log(locNetConfig)
