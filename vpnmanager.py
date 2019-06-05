@@ -28,6 +28,7 @@ def log(event):
         logfile.close()
 
 #func for starting vpn, changes active dir to openvpn dir
+#TODO when opvpn called try func works and opens vpn but still moves to except
 def opvpn():
     log('opvpn called to start vpn')
     os.chdir('/etc/openvpn')
@@ -41,44 +42,28 @@ def opvpn():
 
 #vpnconnection check
 
-#locNetStatus = subprocess.check_output(
-#        ['ping', '-c5', '-w20', '192.168.0.1']
-#       )
 locNetConfig = subprocess.check_output('ifconfig')
 
-#by ping 
-#TODO fix error thrown when network off, ping does not
-#return correctly
-#TODO fix error in subprocess.check_output call
-#try:
-#    subprocess.check_output(
-#            ['ping', '-c5', '-w20', '192.168.0.1']
-#           )
-#    log('net up, data from ping')
-#    log(locNetStatus)
-#    log(locNetConfig)
-#    network = 'up'
-#except:
-#    log('net down, data from ping')
-#    log(locNetStatus)
-#    log(locNetConfig)
-#    network = 'down'
-
 #by ifconfig
-#TODO fix error with elif command
 tun = str('tun0')
 pram = re.compile(r"(192\............)|(172\............)")
-repram = pram.findall(locNetConfig)
 locNetConfig = str(locNetConfig)
+repram = pram.findall(locNetConfig)
 if tun in locNetConfig:
     log('tun0 up')
-elif pram :   #if repram has value then true else go to else?
+elif len(repram) >= 1:
     log('tun0 down but network is up, calling opvpn func')
     log(locNetConfig)
     opvpn()
 else:
     log('tun0 down, network down')
     log(locNetConfig)
-    
+    log('attempting network startup')
+    subprocess.call(
+            ['service',
+                'network-manager',
+                'start']
+            )
+    opvpn()
 
 
