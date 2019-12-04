@@ -1,0 +1,9 @@
+container,po,part,qty,use by date,reserved by,reserved to
+cn321,po789,fiber,20,10dec19,mauks,
+cn321,po789,sfp,20,10dec19,mauks,
+cn123,po123,fiber,10,10Jan20,mauks,foo
+cn456,po321,sfp,5,10dec19,test,foo
+cn654,po456,antenna,1,10dec19,test,star
+cn789,po654,antenna,3,10Jan20,test,dew
+cn987,po987,sfp,3,10Jan20,test,dew
+cn656,po456,antenna,1,10Jan20,test,star
