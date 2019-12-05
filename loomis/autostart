@@ -1,0 +1,16 @@
+#!/bin/bash
+
+#auto start program for loomis, makes dir in user directory
+#and sets venv
+
+#install venv
+#apt-get install python3-venv
+
+#make vert env 
+python3 -m venv /home/$USER/loomis
+
+#activate
+source bin/activate
+
+#install openpyxl
+python3 -m pip install openpyxl
