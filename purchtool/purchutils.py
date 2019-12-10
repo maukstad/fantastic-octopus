@@ -19,9 +19,8 @@ while n < load_file_count:
     n = n + 1
 user_selection = input('please select number:')
 if int(user_selection) >= 0 and int(user_selection) <= load_file_count -1:
-    print("Please confirm " + local_files(int(user_selection)) 
-            + " is the PURCH equipment report csv")
-    input("Yes/No")
+    print("Please confirm " + local_files[int(user_selection)] + " is the PURCH equipment report csv")
+#    input("Yes/No")
 
 
 #TODO find parts in both PURCH and FUZE data with expiring dates
