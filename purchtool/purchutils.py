@@ -9,18 +9,30 @@ from os import listdir
 local_files = listdir()
 load_file_count = len(local_files)
 
+def load_purch_file(file_number):
+    purch_file = local_files[int(file_number)]
+    print('file loaded')
 
 #TODO user picks files
-print('Please choose the PURCH equipment report csv from the following ' 
+def file_selection():
+    print('Please choose the PURCH equipment report csv from the following ' 
         + str(load_file_count) + ' files')
-n = 0
-while n < load_file_count:
-    print("(" + str(n) + ") " + local_files[n])
-    n = n + 1
-user_selection = input('please select number:')
-if int(user_selection) >= 0 and int(user_selection) <= load_file_count -1:
-    print("Please confirm " + local_files[int(user_selection)] + " is the PURCH equipment report csv")
-    input("Yes/No")
+    n = 0
+    while n < load_file_count:
+        print("(" + str(n) + ") " + local_files[n])
+        n = n + 1
+    user_selection = input('please select number:')
+    if int(user_selection) >= 0 and int(user_selection) <= load_file_count -1:
+        print("Please confirm " + local_files[int(user_selection)] + " is the PURCH equipment report csv")
+        purch_confirm = input("Yes/No: ")
+        if purch_confirm == 'Yes':
+            load_purch_file(int(user_selection))
+        else:
+            file_selection()
+            print('file not loaded')
+
+   
+file_selection()
 
 
 #TODO find parts in both PURCH and FUZE data with expiring dates
