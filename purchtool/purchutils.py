@@ -28,8 +28,9 @@ def file_selection():
         if purch_confirm == 'Yes':
             load_purch_file(int(user_selection))
         else:
-            file_selection()
             print('file not loaded')
+            file_selection()
+        
 
    
 file_selection()
