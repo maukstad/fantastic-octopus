@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 import math
 import time
 import krpc
@@ -67,6 +69,12 @@ while apoapsis() < target_altitude:
     pass
 print('Target apoapsis reached')
 vessel.control.throttle = 0.0
+print('Dumping main stage')
+time.sleep(1)
+vessel.control.activate_next_stage()
+print('Igniting second stage')
+time.sleep(1)
+vessel.control.activate_next_stage()
 
 # Wait until out of atmosphere
 print('Coasting out of atmosphere')
@@ -95,6 +103,7 @@ burn_time = (m0 - m1) / flow_rate
 
 # Orientate ship
 print('Orientating ship for circularization burn')
+vessel.control.rcs=True
 vessel.auto_pilot.reference_frame = node.reference_frame
 vessel.auto_pilot.target_direction = (0, 1, 0)
 vessel.auto_pilot.wait()
@@ -120,6 +129,7 @@ while remaining_burn()[1] > 0:
     pass
 vessel.control.throttle = 0.0
 node.remove()
+vessel.control.rcs=False
 
 print('Launch complete')
 
